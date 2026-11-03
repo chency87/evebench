@@ -1,0 +1,88 @@
+services:
+  dev:
+    image: evebench-devcontainer
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        USER_UID: ${USER_UID}
+        USER_GID: ${USER_GID}
+
+    container_name: evebench
+    init: true
+
+
+    working_dir: /workspaces/evebench
+
+
+
+    volumes:
+      - ..:/workspaces/evebench:cached
+      - dev_history:/home/user/.history
+      - ./starship.toml:/home/user/.config/starship.toml:ro
+      - type: bind
+        source: /mnt/data/devcontainer-cache/huggingface
+        target: /home/user/.cache/huggingface
+        bind:
+          create_host_path: false
+
+      - type: bind
+        source: /mnt/data/devcontainer-cache/uv
+        target: /home/user/.cache/uv
+        bind:
+          create_host_path: false
+
+      - type: bind
+        source: /mnt/data/devcontainer-cache/pip
+        target: /home/user/.cache/pip
+        bind:
+          create_host_path: false
+
+      # Codex
+      - type: bind
+        source: /mnt/data/devcontainer-state/codex
+        target: /home/user/.codex
+        bind:
+          create_host_path: false
+
+
+
+
+    # run as the same user defined in Dockerfile
+    user: "${USER_UID}:${USER_GID}"
+
+    environment:
+
+      HOME: /home/user
+      HF_HOME: /home/user/.cache/huggingface
+      HF_XET_RECONSTRUCT_WRITE_SEQUENTIALLY: "1"
+      UV_CACHE_DIR: /home/user/.cache/uv
+      UV_LINK_MODE: copy
+      PIP_CACHE_DIR: /home/user/.cache/pip
+
+
+    command: sleep infinity
+
+
+
+
+    networks:
+      - default
+      - external-dev
+
+
+
+    # optional ports (uncomment if needed)
+    # ports:
+    #   - "3000:3000"
+    #   - "8000:8000"
+
+volumes:
+  dev_history:
+    name: dev_history
+
+
+networks:
+  external-dev:
+    external: true
+    name: shared_network

@@ -1,0 +1,46 @@
+[project]
+name = "evebench"
+version = "0.1.0"
+description = "Benchmark and API for SQL query-equivalence checkers"
+readme = "README.md"
+requires-python = ">= 3.11"
+dependencies = [
+    "anthropic>=1.10.0,<2.0.0",
+    "datafusion==54.0.0",
+    "fastapi>=0.116.0,<1.0.0",
+    "jpype1>=1.6.0,<2.0.0",
+    "lark>=1.1.0,<2.0.0",
+    "matplotlib>=3.9.0,<4.0.0",
+    "mo-sql-parsing==8.205.22260",
+    "openai>=3.22.1,<4.0.0",
+    "ordered-set>=4.1.0,<5.0.0",
+    "pandas>=2.2.0,<4.0.0",
+    "parseval==1.0.1",
+    "pebble>=5.2.0,<6.0.0",
+    "pikepdf[pdfa]>=10.16.0,<11.0.0",
+    "psycopg2-binary>=2.9.13",
+    "python-dotenv>=1.1.0,<2.0.0",
+    "setuptools>=70.0.0,<81.0.0",
+    "sqlglot==23.12.1",
+    "ujson>=5.10.0,<6.0.0",
+    "uvicorn[standard]>=0.35.0,<1.0.0",
+]
+
+[dependency-groups]
+dev = [
+  "mkdocs>=1.6.0",
+  "mkdocs-material>=9.5.0",
+  "httpx>=0.28.0",
+  "pytest>=8.0.0",
+  "pytest-asyncio>=1.1.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.7.19,<0.8.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.uv.sources]
+parseval = { url = "https://github.com/sfu-db/ParSEval/releases/download/v1.0.1/parseval-1.0.1-py3-none-any.whl" }

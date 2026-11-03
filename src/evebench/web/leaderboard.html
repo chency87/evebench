@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare query-equivalence approaches on EveBench datasets.">
+  <title>EveBench · Leaderboard</title>
+  <link rel="icon" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/leaderboard.js" defer></script>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a class="brand" href="/"><span class="brand-mark">E</span>EveBench</a>
+    <div class="nav-links">
+      <a href="/">Check</a>
+      <a class="active" href="/leaderboard">Leaderboard</a>
+      <a class="api-link" href="/docs">API</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">Reproducible evaluation</div>
+    <h1>How approaches compare,<br>case by case.</h1>
+    <p>Explore the share of equivalent, non-equivalent, unknown, unsupported, and timed-out results returned by every checker.</p>
+    <div class="hero-actions">
+      <a class="pill-link" href="#leaderboard">Explore results ↓</a>
+      <a class="pill-link light" href="/">Try your own queries</a>
+    </div>
+  </header>
+
+  <main class="leaderboard-wrap" id="leaderboard">
+    <div class="section-head">
+      <h2>Benchmark results</h2>
+      <p>Accuracy and verdict counts for each dataset. Historical imports have no recorded execution times.</p>
+    </div>
+    <section class="board-card" aria-label="Approach leaderboard">
+      <div class="board-tools">
+        <label class="dataset-select" for="dataset">Dataset
+          <select id="dataset">
+            <option>Loading datasets…</option>
+          </select>
+        </label>
+        <fieldset class="metric-toggle" aria-label="Verdict value display">
+          <legend>Show</legend>
+          <label>
+            <input type="radio" name="value-mode" value="ratio" checked>
+            <span>Ratio</span>
+          </label>
+          <label>
+            <input type="radio" name="value-mode" value="count">
+            <span>Exact count</span>
+          </label>
+        </fieldset>
+        <span class="board-note" id="snapshot-label"></span>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th class="rank-heading" scope="col">Rank</th>
+              <th scope="col" data-sort="display_name"><button type="button">Approach<span class="sort-indicator" aria-hidden="true"></span></button></th>
+              <th scope="col" data-sort="accuracy" aria-sort="descending"><button type="button">Accuracy<span class="sort-indicator" aria-hidden="true">↓</span></button></th>
+              <th scope="col" data-sort="eq"><button type="button">EQ<span class="sort-indicator" aria-hidden="true"></span></button></th>
+              <th scope="col" data-sort="neq"><button type="button">NEQ<span class="sort-indicator" aria-hidden="true"></span></button></th>
+              <th scope="col" data-sort="unknown"><button type="button">Unknown<span class="sort-indicator" aria-hidden="true"></span></button></th>
+              <th scope="col" data-sort="unsupported"><button type="button">Unsupported<span class="sort-indicator" aria-hidden="true"></span></button></th>
+              <th scope="col" data-sort="timeout"><button type="button">Timeout<span class="sort-indicator" aria-hidden="true"></span></button></th>
+              <th scope="col" data-sort="median_duration_ms"><button type="button">Median time<span class="sort-indicator" aria-hidden="true"></span></button></th>
+              <th scope="col" data-sort="evaluated"><button type="button">Evaluated<span class="sort-indicator" aria-hidden="true"></span></button></th>
+            </tr>
+          </thead>
+          <tbody id="board-body"></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="reason-section" aria-labelledby="reason-heading">
+      <div class="section-head">
+        <h2 id="reason-heading">Unsupported reasons</h2>
+        <p>Why each checker could not evaluate cases in the selected run.</p>
+      </div>
+      <div id="unsupported-reasons" class="reason-grid" aria-live="polite"></div>
+    </section>
+    <div class="metric-guide">
+      <div class="metric-card"><strong>Accuracy</strong><span>Correct verdicts divided by labeled cases. Unknown results count as incorrect; verdict shares alone do not measure accuracy.</span></div>
+      <div class="metric-card"><strong>EQ / NEQ</strong><span>The checker returned a conclusive equivalent or non-equivalent verdict.</span></div>
+      <div class="metric-card"><strong>Unknown</strong><span>A proof was attempted but no conclusive verdict was established, or an evaluation failed.</span></div>
+      <div class="metric-card"><strong>Unsupported</strong><span>The checker could not handle the input or requested capability.</span></div>
+      <div class="metric-card"><strong>Timeout</strong><span>The checker or EveBench reached the configured deadline.</span></div>
+    </div>
+  </main>
+
+  <footer>Live results from the EveBench SQLite evaluation database · <a href="/">Open the workbench</a></footer>
+</body>
+</html>

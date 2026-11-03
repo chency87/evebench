@@ -1,0 +1,77 @@
+add_newline = false
+
+format = """
+$python\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$character
+"""
+
+# 👤 User
+[username]
+show_always = true
+style_user = "bold green"
+style_root = "bold red"
+format = "[$user]($style)@"
+
+# 🖥 Host (useful for SSH / servers)
+[hostname]
+ssh_only = false
+format = "[$hostname](bold blue) "
+
+# 📁 Directory (clean + repo-aware)
+[directory]
+style = "blue bold"
+truncation_length = 3
+truncate_to_repo = true
+read_only = " 🔒"
+
+
+
+# 🌿 Git branch
+[git_branch]
+symbol = ""
+style = "purple"
+
+# 📊 Git status (compact but informative)
+[git_status]
+style = "red"
+format = '([\[$all_status$ahead_behind\]]($style) )'
+
+# ⏱ Command duration (only if meaningful)
+[cmd_duration]
+min_time = 500
+format = " ⏱ [$duration]($style)"
+
+# 🟢 Node.js (no symbol, clean)
+[nodejs]
+style = "green"
+format = "[$version]($style) "
+
+# 🐍 Python (clean)
+[python]
+style = "yellow"
+format = '[(\($virtualenv\))]($style)'
+
+# 🦀 Rust (clean)
+[rust]
+style = "red"
+format = "via [$version]($style) "
+
+# 🚫 Disable noisy cloud modules
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+# ➜ Prompt character
+[character]
+success_symbol = "[➜](green)"
+error_symbol = "[✗](red)"

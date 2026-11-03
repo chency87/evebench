@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare SQL query-equivalence checkers in one workbench.">
+  <title>EveBench · SQL equivalence workbench</title>
+  <link rel="icon" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a class="brand" href="/"><span class="brand-mark">E</span>EveBench</a>
+    <div class="nav-links">
+      <a class="active" href="/">Check</a>
+      <a href="/leaderboard">Leaderboard</a>
+      <a class="api-link" href="/docs">API</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">SQL equivalence, independently verified</div>
+    <h1>One question.<br>Several ways to prove it.</h1>
+    <p>Write a schema and two SQL queries. EveBench asks multiple verification backends the same question and brings every verdict into one view.</p>
+    <div class="hero-actions">
+      <a class="pill-link" href="#workbench">Open workbench ↓</a>
+      <a class="pill-link light" href="/leaderboard">View benchmarks</a>
+    </div>
+  </header>
+
+  <main class="workbench-section" id="workbench">
+    <section class="workbench" aria-label="SQL equivalence workbench">
+      <div class="workbench-topbar">
+        <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="workbench-label">New equivalence case</div>
+        <button class="example-button" type="button" id="load-example">Load example</button>
+      </div>
+      <div class="workspace-grid">
+        <form class="editor-pane" id="check-form">
+          <div class="field">
+            <label for="schema-ddl">Schema DDL <span>shared context</span></label>
+            <textarea class="ddl" id="schema-ddl" required spellcheck="false"></textarea>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="query-left">Query A <span>candidate</span></label>
+              <textarea id="query-left" required spellcheck="false"></textarea>
+            </div>
+            <div class="field">
+              <label for="query-right">Query B <span>reference</span></label>
+              <textarea id="query-right" required spellcheck="false"></textarea>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="dialect">Source SQL dialect</label>
+              <select id="dialect">
+                <option value="sqlite">SQLite</option>
+                <option value="postgresql">PostgreSQL</option>
+                <option value="mysql">MySQL</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="semantics">Semantics</label>
+              <select id="semantics">
+                <option value="bag">Bag (duplicates count)</option>
+                <option value="set">Set</option>
+              </select>
+            </div>
+          </div>
+          <div class="group-label">Backends</div>
+          <div class="backend-options" id="backend-options">
+            <div class="backend-card backend-check">
+              <input type="checkbox" disabled>
+              <label><span class="check-ui"></span><span>Loading…</span></label>
+            </div>
+          </div>
+          <div class="run-row">
+            <div>
+              <label for="timeout" style="margin-bottom:4px">Timeout</label>
+              <input id="timeout" type="number" value="30" min="1" max="300" style="width:78px"> <small>seconds / backend</small>
+            </div>
+            <button class="primary-button" id="run-button" type="submit">Run all checks →</button>
+          </div>
+        </form>
+        <aside class="result-pane" aria-live="polite">
+          <div class="result-header">
+            <h2>Backend verdicts</h2>
+            <span class="result-count" id="result-count">Waiting for input</span>
+          </div>
+          <div id="results">
+            <div class="empty-state">
+              <div>
+                <div class="empty-icon">A≡B</div>
+                <strong>Results will meet here</strong>
+                <p>Run the case to compare verdict, execution status, and timing across the selected backends.</p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>EveBench · A common interface for query-equivalence research · <a href="/docs">OpenAPI documentation</a></footer>
+</body>
+</html>
